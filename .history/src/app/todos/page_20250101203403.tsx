@@ -3,7 +3,6 @@
 import { signIn, useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { json } from "stream/consumers";
 
 type Todo = {
   _id: string,
@@ -13,7 +12,7 @@ type Todo = {
 
 export default function Todo() {
   const [isLoading, setLoading]= useState(true)
-  const [todos, setTodos]=useState<Todo[]>([])
+  const [todos, setTodos]=useState<Todo | null>(null)
   const [newTodoText, setNewTodoText]=useState<string>('');
   const [editTodo, setEditTodo]=useState<Todo | null>(null);
 
@@ -48,22 +47,6 @@ export default function Todo() {
   //     router.push('/login'); // Redirect to login if not authenticated
   //   }
   // }, []);
-
-  const addTodo = async() => {
-    if(!newTodoText) return;
-    const response = await fetch('/api/todo', {
-      method: 'POST',
-      body: JSON.stringify({text: newTodoText}),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    const data = await response.json();
-    console.log("data", data)
-    setTodos([...todos, data]);
-    setNewTodoText('')
-  }
-
   return (
     <>
       <div className="grid place-items-center w-full lg:place-items-start text-purple-500 min-h-screen">
@@ -94,9 +77,9 @@ export default function Todo() {
                 type="text"
                 placeholder="write here ..."
                 value={newTodoText}
-                onChange={(e)=> setNewTodoText(e.currentTarget.value)}
+                onChange={(e:an)}
               />
-              <button onClick={addTodo} className="bg-slate-800 border px-5 py-2 rounded-lg my-8 text-green-400 text-lg font-semibold">
+              <button className="bg-slate-800 border px-5 py-2 rounded-lg my-8 text-green-400 text-lg font-semibold">
                 Add Todo
               </button>
             </> )}

@@ -13,7 +13,7 @@ type Todo = {
 
 export default function Todo() {
   const [isLoading, setLoading]= useState(true)
-  const [todos, setTodos]=useState<Todo[]>([])
+  const [todos, setTodos]=useState<Todo | null>(null)
   const [newTodoText, setNewTodoText]=useState<string>('');
   const [editTodo, setEditTodo]=useState<Todo | null>(null);
 
@@ -60,8 +60,7 @@ export default function Todo() {
     });
     const data = await response.json();
     console.log("data", data)
-    setTodos([...todos, data]);
-    setNewTodoText('')
+    setTodos([...todos, data])
   }
 
   return (

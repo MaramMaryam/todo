@@ -3,7 +3,6 @@
 import { signIn, useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { json } from "stream/consumers";
 
 type Todo = {
   _id: string,
@@ -13,7 +12,7 @@ type Todo = {
 
 export default function Todo() {
   const [isLoading, setLoading]= useState(true)
-  const [todos, setTodos]=useState<Todo[]>([])
+  const [todos, setTodos]=useState<Todo | null>(null)
   const [newTodoText, setNewTodoText]=useState<string>('');
   const [editTodo, setEditTodo]=useState<Todo | null>(null);
 
@@ -51,17 +50,7 @@ export default function Todo() {
 
   const addTodo = async() => {
     if(!newTodoText) return;
-    const response = await fetch('/api/todo', {
-      method: 'POST',
-      body: JSON.stringify({text: newTodoText}),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    const data = await response.json();
-    console.log("data", data)
-    setTodos([...todos, data]);
-    setNewTodoText('')
+    
   }
 
   return (

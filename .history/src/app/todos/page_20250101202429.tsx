@@ -2,24 +2,15 @@
 "use client"; // This component should be a client component
 import { signIn, useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { json } from "stream/consumers";
+import { useEffect } from "react";
 
-type Todo = {
-  _id: string,
-  text: string | null,
-  completed: boolean
-}
+type
 
 export default function Todo() {
-  const [isLoading, setLoading]= useState(true)
-  const [todos, setTodos]=useState<Todo[]>([])
-  const [newTodoText, setNewTodoText]=useState<string>('');
-  const [editTodo, setEditTodo]=useState<Todo | null>(null);
-
   // const cookieStore = await cookies(); // Get all cookies
   // const token = cookieStore.get("next-auth.session-token")?.value;
   // // const tokens = await getToken(); // Retrieve the auth token
+  // console.log(token);
 
   // if (!token) {
   //   redirect("/login"); // Redirect to login if token is invalid or not present
@@ -48,22 +39,6 @@ export default function Todo() {
   //     router.push('/login'); // Redirect to login if not authenticated
   //   }
   // }, []);
-
-  const addTodo = async() => {
-    if(!newTodoText) return;
-    const response = await fetch('/api/todo', {
-      method: 'POST',
-      body: JSON.stringify({text: newTodoText}),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    const data = await response.json();
-    console.log("data", data)
-    setTodos([...todos, data]);
-    setNewTodoText('')
-  }
-
   return (
     <>
       <div className="grid place-items-center w-full lg:place-items-start text-purple-500 min-h-screen">
@@ -76,7 +51,7 @@ export default function Todo() {
               To Do List
             </h1>
             {/***********edit todo */}
-           {editTodo ? (<>
+            <>
               <input
                 className="w-full lg:w-8/12 border bg-gray-900 border-orange-300 py-4 text-lg rounded-lg text-purple-300"
                 type="text"
@@ -86,20 +61,17 @@ export default function Todo() {
               </button>
             </>
 
-            // {/***********add todo */}
-           ):(
+            {/***********add todo */}
             <>
               <input
                 className="w-full lg:w-8/12 border bg-gray-900 border-purple-300 px-2 py-4 text-lg rounded-lg text-purple-300"
                 type="text"
                 placeholder="write here ..."
-                value={newTodoText}
-                onChange={(e)=> setNewTodoText(e.currentTarget.value)}
               />
-              <button onClick={addTodo} className="bg-slate-800 border px-5 py-2 rounded-lg my-8 text-green-400 text-lg font-semibold">
+              <button className="bg-slate-800 border px-5 py-2 rounded-lg my-8 text-green-400 text-lg font-semibold">
                 Add Todo
               </button>
-            </> )}
+            </>
           </div>
         </div>
       </div>

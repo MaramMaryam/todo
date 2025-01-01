@@ -75,23 +75,6 @@ export default function Todo() {
   const handleEdit=(todo:Todo)=>{
     setEditTodo(todo)
   }
-
-  const handleSave=async()=>{
-    if(!editTodo) return;
-     const response = await fetch("/api/todo", {
-      method:'PUT',
-      body: JSON.stringify({id: editTodo._id, text: editTodo.text, completed: editTodo.completed}),
-      headers: {
-        "Content-Type": "application/json",
-      },
-     })
-     if(response.status === 200){
-      setTodos(
-        todos.map((todo:Todo)=> todo._id === editTodo._id ? {...todo, text: editTodo.text}: todo)
-      )
-      setEditTodo(null)
-     }
-  }
   return (
     <>
       <div className="grid place-items-center w-full lg:place-items-start text-purple-500 min-h-screen">
@@ -109,10 +92,9 @@ export default function Todo() {
                 <input
                   className="w-full lg:w-8/12 border bg-gray-900 border-orange-300 py-4 text-lg rounded-lg text-purple-300"
                   type="text"
-                  value={editTodo.text!}
-                  onChange={(e)=>setEditTodo({...editTodo, text: e.currentTarget.value})}
+                  value={editTodo}
                 />
-                <button onClick={handleSave} className="bg-slate-800 border px-5 py-2 rounded-lg my-8 text-green-400 text-lg font-semibold">
+                <button className="bg-slate-800 border px-5 py-2 rounded-lg my-8 text-green-400 text-lg font-semibold">
                   save
                 </button>
               </>

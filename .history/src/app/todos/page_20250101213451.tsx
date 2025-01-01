@@ -76,7 +76,7 @@ export default function Todo() {
     setEditTodo(todo)
   }
 
-  const handleSave=async()=>{
+  const hanldeSave=async()=>{
     if(!editTodo) return;
      const response = await fetch("/api/todo", {
       method:'PUT',

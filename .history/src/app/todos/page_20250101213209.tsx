@@ -76,7 +76,7 @@ export default function Todo() {
     setEditTodo(todo)
   }
 
-  const handleSave=async()=>{
+  const hanldeSave=async()=>{
     if(!editTodo) return;
      const response = await fetch("/api/todo", {
       method:'PUT',
@@ -87,9 +87,8 @@ export default function Todo() {
      })
      if(response.status === 200){
       setTodos(
-        todos.map((todo:Todo)=> todo._id === editTodo._id ? {...todo, text: editTodo.text}: todo)
+        todos.map((todo:Todo)=> todo._id === editTodo._id ? {...todo})
       )
-      setEditTodo(null)
      }
   }
   return (
@@ -112,7 +111,7 @@ export default function Todo() {
                   value={editTodo.text!}
                   onChange={(e)=>setEditTodo({...editTodo, text: e.currentTarget.value})}
                 />
-                <button onClick={handleSave} className="bg-slate-800 border px-5 py-2 rounded-lg my-8 text-green-400 text-lg font-semibold">
+                <button onClick={hanldeSave} className="bg-slate-800 border px-5 py-2 rounded-lg my-8 text-green-400 text-lg font-semibold"n>
                   save
                 </button>
               </>

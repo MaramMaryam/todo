@@ -1,0 +1,1 @@
+import clientPromise from from "../../../../lib/mongodb";

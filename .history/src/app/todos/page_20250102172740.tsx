@@ -236,7 +236,7 @@ export default function Todos() {
   const [isLoading, setLoading] = useState(true);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoText, setNewTodoText] = useState<string>("");
-  const [editTodo, setEditTodo] = useState<Todo | any>();
+  const [editTodo, setEditTodo] = useState<Todo | null>(null);
 
   const { data: session, status } = useSession();
   

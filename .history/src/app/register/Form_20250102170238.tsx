@@ -3,11 +3,11 @@ import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup"; // For validation
 import InputField from "../components/InputField";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
 
-const LoginForm: React.FC = () => {
+const RegisterForm: React.FC = () => {
   const initialValues = {
     email: "",
     password: "",
@@ -16,6 +16,7 @@ const LoginForm: React.FC = () => {
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email address").required("Required"),
     password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
       .required("Required"),
   });
 
@@ -37,19 +38,19 @@ const LoginForm: React.FC = () => {
   }, [session, status, router]);
 
   const handleSubmit = async (values: typeof initialValues) => {
-    // e.preventDefault();
+    // // e.preventDefault();
 
-    const result = await signIn("credentials", {
-      redirect: false,
-      email: values.email,
-      password: values.password,
-    });
+    // const result = await signIn("credentials", {
+    //   redirect: false,
+    //   email: values.email,
+    //   password: values.password,
+    // });
 
-    if (result?.error) {
-      alert(result.error); // Handle login error
-    } else {
-      router.push("/todos"); // Redirect to dashboard after successful login
-    }
+    // if (result?.error) {
+    //   alert(result.error); // Handle login error
+    // } else {
+    //   router.push("/todos"); // Redirect to dashboard after successful login
+    // }
   };
 
   return (
@@ -65,11 +66,11 @@ const LoginForm: React.FC = () => {
           className="bg-slate-800 w-full border px-5 py-2 rounded-lg my-8 text-green-400 text-lg font-semibold"
           type="submit"
         >
-          Login
+          Register
         </button>
       </Form>
     </Formik>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

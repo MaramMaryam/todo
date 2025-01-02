@@ -3,11 +3,11 @@ import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup"; // For validation
 import InputField from "../components/InputField";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
 
-const LoginForm: React.FC = () => {
+const RegisterForm: React.FC = () => {
   const initialValues = {
     email: "",
     password: "",
@@ -16,6 +16,7 @@ const LoginForm: React.FC = () => {
   const validationSchema = Yup.object({
     email: Yup.string().email("Invalid email address").required("Required"),
     password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
       .required("Required"),
   });
 

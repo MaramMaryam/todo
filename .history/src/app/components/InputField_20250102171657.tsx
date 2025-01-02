@@ -12,7 +12,7 @@ interface MyInputProps {
 const MyInput: React.FC<MyInputProps> = ({ name, placeholder, onchange, type = 'text' }) => {
   return (
     <div className='mt-4'>
-      <Field className='rounded-lg bg-transparent p-2 border border-gray-400' name={name} type={type} placeholder={placeholder} />
+      <Field className='rounded-lg bg-transparent p-2 border border-gray-400' name={name} type={type} placeholder={placeholder} onChange={onchange} />
       <ErrorMessage name={name} component="div" className="text-red-800 text-xs" />
     </div>
   );

@@ -3,7 +3,7 @@ import React from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup"; // For validation
 import InputField from "../components/InputField";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const RegisterForm: React.FC = () => {
@@ -19,23 +19,49 @@ const RegisterForm: React.FC = () => {
       .required("Required"),
   });
 
+  //   const handleSubmit = (values: typeof initialValues) => {
+  //     console.log('Form data', values);
+  //     // Handle form submission (e.g., API call)
+  //   };
+  // const [email, setEmail] = useState('');
+  //   const [password, setPassword] = useState('');
   const router = useRouter();
   const { data: session, status } = useSession(); // Get session data
   console.log(session, status);
+  //   if (status === 'loading') return; // Wait for loading state
+  // useEffect(() => {
+  //   if (session) {
+  //     redirect("/todos"); // Redirect to login if not authenticated
+  //   }
+  //   router.push("/login");
+  // }, [session, status, router]);
 
   const handleSubmit = async (values: typeof initialValues) => {
-    const response = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: values.email, password: values.password }),
+    const response = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email:values.email, password:values.password }),
     });
 
     if (response.ok) {
-      router.push("/login"); // Redirect to login page after successful registration
+      router.push('/login'); // Redirect to login page after successful registration
     } else {
       const errorData = await response.json();
       alert(errorData.message); // Show error message to the user
     }
+    // // e.preventDefault();
+
+    // const result = await signIn("credentials", {
+    //   redirect: false,
+    //   email: values.email,
+    //   password: values.password,
+    // });
+
+    // if (result?.error) {
+    //   alert(result.error); // Handle login error
+    // } else {
+    //   router.push("/todos"); // Redirect to dashboard after successful login
+    // }
   };
 
   return (

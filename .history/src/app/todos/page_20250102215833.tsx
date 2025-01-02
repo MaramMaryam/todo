@@ -40,7 +40,7 @@ export default function Todos() {
       case "Active":
         return todos.filter((todo) => !todo.completed);
       default:
-        return todos; // Show all todos
+        // return todos; // Show all todos
     }
   };
 

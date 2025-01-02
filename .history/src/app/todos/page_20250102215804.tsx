@@ -28,7 +28,7 @@ export default function Todos() {
     fetch("/api/todo")
       .then((res) => res.json())
       .then((data) => {
-        setTodos(data);
+        // setTodos(data);
         setLoading(false);
       });
   }, [session, status]);

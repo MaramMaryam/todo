@@ -39,8 +39,8 @@ export default function Todos() {
         return todos.filter((todo) => todo.completed);
       case "Active":
         return todos.filter((todo) => !todo.completed);
-      default:
-        return todos; // Show all todos
+      // default:
+        // return todos; // Show all todos
     }
   };
 

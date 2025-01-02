@@ -31,7 +31,7 @@ export default function Todos() {
         setTodos(data);
         setLoading(false);
       });
-  }, [session, status]);
+  }, [session, status, to]);
 
   const getFilteredTodos = () => {
     switch (filter) {

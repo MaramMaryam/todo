@@ -5,7 +5,8 @@ const Loading =() => {
 
   return (
     <>
-      <p className="text-pink-500 text-xl italic my-6">Loading...</p>  
+      <p className="text-pink-500 text-xl italic my-6">Loading...</p>
+  
     </>
   );
 };

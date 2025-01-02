@@ -1,8 +1,9 @@
 // app/login/page.js
 "use client"; // This component should be a client component
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { json } from "stream/consumers";
 
 type Todo = {
   _id: string;
@@ -71,60 +72,38 @@ export default function Todo() {
     setNewTodoText("");
   };
 
-  const handleEdit = (todo: Todo) => {
-    setEditTodo(todo);
-  };
+  const handleEdit=(todo:Todo)=>{
+    setEditTodo(todo)
+  }
 
-  const handleSave = async () => {
-    if (!editTodo) return;
-    const response = await fetch("/api/todo", {
-      method: "PUT",
-      body: JSON.stringify({
-        id: editTodo._id,
-        text: editTodo.text,
-        completed: editTodo.completed,
-      }),
+  const handleSave=async()=>{
+    if(!editTodo) return;
+     const response = await fetch("/api/todo", {
+      method:'PUT',
+      body: JSON.stringify({id: editTodo._id, text: editTodo.text, completed: editTodo.completed}),
       headers: {
         "Content-Type": "application/json",
       },
-    });
-    if (response.status === 200) {
+     })
+     if(response.status === 200){
       setTodos(
-        todos.map((todo: Todo) =>
-          todo._id === editTodo._id ? { ...todo, text: editTodo.text } : todo
-        )
-      );
-      setEditTodo(null);
-    }
-  };
-  const handleDelete = async (id: string) => {
-    const response = await fetch("/api/todo", {
-      method: "DELETE",
-      body: JSON.stringify({ id }),
+        todos.map((todo:Todo)=> todo._id === editTodo._id ? {...todo, text: editTodo.text}: todo)
+      )
+      setEditTodo(null)
+     }
+  }
+  const handleDelete=async(id:string)=>{
+    const response = await fetch('/api/todo', { 
+      method: 'DELETE',
+      body: JSON.stringify({id}),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    if (response.status === 200) {
-      setTodos(todos.filter((todo: Todo) => todo._id !== id));
+    if(response.status === 200){
+      setTodos(todos.filter((todo:Todo)))
     }
-  };
-  const toggleTodo = async (id: string, completed: boolean) => {
-    const response = await fetch("/api/todo", {
-      method: "PUT",
-      body: JSON.stringify({ id, completed: !completed }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.status === 200) {
-      setTodos(
-        todos.map((todo: Todo) =>
-          todo._id === id ? { ...todo, completed: !completed } : todo
-        )
-      );
-    }
-  };
+  }
   return (
     <>
       <div className="grid place-items-center w-full lg:place-items-start text-purple-500 min-h-screen">
@@ -143,14 +122,9 @@ export default function Todo() {
                   className="w-full lg:w-8/12 border bg-gray-900 border-orange-300 py-4 text-lg rounded-lg text-purple-300"
                   type="text"
                   value={editTodo.text!}
-                  onChange={(e) =>
-                    setEditTodo({ ...editTodo, text: e.currentTarget.value })
-                  }
+                  onChange={(e)=>setEditTodo({...editTodo, text: e.currentTarget.value})}
                 />
-                <button
-                  onClick={handleSave}
-                  className="bg-slate-800 border px-5 py-2 rounded-lg my-8 text-green-400 text-lg font-semibold"
-                >
+                <button onClick={handleSave} className="bg-slate-800 border px-5 py-2 rounded-lg my-8 text-green-400 text-lg font-semibold">
                   save
                 </button>
               </>
@@ -193,8 +167,6 @@ export default function Todo() {
                     >
                       <div className="flex justify-start items-start w-8/12">
                         <input
-                          checked={todo.completed}
-                          onChange={() => toggleTodo(todo._id, todo.completed)}
                           type="checkbox"
                           className="w-5 h-5 cursor-pointer mt-1"
                         />
@@ -207,18 +179,8 @@ export default function Todo() {
                         </span>
                       </div>
                       <div className="w-4/12 md:w-3/12">
-                        <button
-                          onClick={() => handleEdit(todo)}
-                          className="text-sky-400 md:text-base text-sm px-2"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleDelete(todo._id)}
-                          className="text-pink-400 md:text-base text-sm px-2"
-                        >
-                          Del
-                        </button>
+                          <button onClick={()=>handleEdit(todo)} className="text-sky-400 md:text-base text-sm px-2">Edit</button>
+                          <button onClick={()=>handleDelete(todo._id)} className="text-pink-400 md:text-base text-sm px-2">Del</button>
                       </div>
                     </li>
                   ))}

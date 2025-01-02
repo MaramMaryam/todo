@@ -1,8 +1,9 @@
 // app/login/page.js
 "use client"; // This component should be a client component
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { json } from "stream/consumers";
 
 type Todo = {
   _id: string;
@@ -109,22 +110,6 @@ export default function Todo() {
       setTodos(todos.filter((todo: Todo) => todo._id !== id));
     }
   };
-  const toggleTodo = async (id: string, completed: boolean) => {
-    const response = await fetch("/api/todo", {
-      method: "PUT",
-      body: JSON.stringify({ id, completed: !completed }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.status === 200) {
-      setTodos(
-        todos.map((todo: Todo) =>
-          todo._id === id ? { ...todo, completed: !completed } : todo
-        )
-      );
-    }
-  };
   return (
     <>
       <div className="grid place-items-center w-full lg:place-items-start text-purple-500 min-h-screen">
@@ -193,8 +178,7 @@ export default function Todo() {
                     >
                       <div className="flex justify-start items-start w-8/12">
                         <input
-                          checked={todo.completed}
-                          onChange={() => toggleTodo(todo._id, todo.completed)}
+                        checked={}
                           type="checkbox"
                           className="w-5 h-5 cursor-pointer mt-1"
                         />

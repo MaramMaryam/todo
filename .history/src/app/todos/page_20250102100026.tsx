@@ -1,8 +1,9 @@
 // app/login/page.js
 "use client"; // This component should be a client component
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { json } from "stream/consumers";
 
 type Todo = {
   _id: string;

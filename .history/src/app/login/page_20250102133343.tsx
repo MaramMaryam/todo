@@ -57,7 +57,7 @@ export default function Login() {
     //   </div>
     //   <button type="submit">Login</button>
     // </form>
-    <div className=''>
+    <div className='border border-gray-400 shadow-md place-items-center md:w-6/12 flex flex-col  rounded-md'>
     <CenteredForm>
 
     <LoginForm />

@@ -1,5 +1,4 @@
 'use client';
-import CenteredForm from '../components/CenteredForm';
 import LoginForm from './Form';
 
 
@@ -57,11 +56,8 @@ export default function Login() {
     //   </div>
     //   <button type="submit">Login</button>
     // </form>
-    <div className=''>
-    <CenteredForm>
-
+    <div className='border border-gray-400 shadow-md md:w-6/12 flex flex-col  rounded-md'>
     <LoginForm />
-    </CenteredForm>
     </div>
   );
 }

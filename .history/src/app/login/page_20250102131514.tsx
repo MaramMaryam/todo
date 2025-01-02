@@ -1,5 +1,8 @@
 'use client';
-import CenteredForm from '../components/CenteredForm';
+
+import { useEffect, useState } from 'react';
+import { signIn, useSession  } from 'next-auth/react';
+import { redirect, useRouter } from 'next/navigation';
 import LoginForm from './Form';
 
 
@@ -57,12 +60,8 @@ export default function Login() {
     //   </div>
     //   <button type="submit">Login</button>
     // </form>
-    <div className=''>
-    <CenteredForm>
-
-    <LoginForm />
-    </CenteredForm>
-    </div>
+    <>
+    <LoginForm /></>
   );
 }
 

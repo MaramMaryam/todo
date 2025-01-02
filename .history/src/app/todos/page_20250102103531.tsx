@@ -1,5 +1,5 @@
-"use client";
-import { useSession, signOut } from "next-auth/react";
+"use client"; 
+import { useSession,signOut  } from "next-auth/react";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -32,7 +32,7 @@ export default function Todo() {
         setLoading(false);
       });
   }, []);
-
+  
   const addTodo = async () => {
     if (!newTodoText) return;
     const response = await fetch("/api/todo", {
@@ -86,7 +86,7 @@ export default function Todo() {
       setTodos(todos.filter((todo: Todo) => todo._id !== id));
     }
   };
-  const toggleTodo = async (id: string, completed: boolean, text: string) => {
+  const toggleTodo = async (id: string, completed: boolean, text:string) => {
     const response = await fetch("/api/todo", {
       method: "PUT",
       body: JSON.stringify({ id, completed: !completed, text }),
@@ -97,27 +97,24 @@ export default function Todo() {
     if (response.status === 200) {
       setTodos(
         todos.map((todo: Todo) =>
-          todo._id === id
-            ? { ...todo, text: todo.text, completed: !completed }
-            : todo
+          todo._id === id ? { ...todo, text: todo.text, completed: !completed } : todo
         )
       );
     }
   };
   const handleLogout = async () => {
     await signOut({ redirect: false }); // Sign out without redirecting immediately
-    router.push("/login"); // Redirect to login page after signing out
+    router.push('/login'); // Redirect to login page after signing out
   };
 
   return (
     <>
-      <button className="text-orange-800 font-bold m-4" onClick={handleLogout}>
-        Logout
-      </button>
-      <div className="flex justify-between items-start mx-14">
-        <h3>Welcome to your Dashboard!</h3>
-        <p>{session?.user?.email}</p> {/* Display user's email */}
-      </div>
+    <button className="text-orange-800 font-bold" onClick={handleLogout}>Logout</button>
+   <div className="flex justify-between items-start mx-14">
+   <h3>Welcome to your Dashboard!</h3>
+      <p>{session?.user?.email}</p> {/* Display user's email */}
+      
+   </div>
       <div className="grid place-items-center w-full lg:place-items-start text-purple-500 min-h-screen">
         <div className="flex lg:flex-row flex-col gap-5 lg:justify-start justify-center lg:items-start items-center w-full mx-auto">
           <div className="sm:w-9/12 lg:w-6/12 w-full px-4 lg:my-10 flex flex-col justify-center items-center">
@@ -185,9 +182,7 @@ export default function Todo() {
                       <div className="flex justify-start items-start w-8/12">
                         <input
                           checked={todo.completed}
-                          onChange={() =>
-                            toggleTodo(todo._id, todo.completed, todo.text!)
-                          }
+                          onChange={() => toggleTodo(todo._id, todo.completed, todo.text!)}
                           type="checkbox"
                           className="w-5 h-5 cursor-pointer mt-1"
                         />

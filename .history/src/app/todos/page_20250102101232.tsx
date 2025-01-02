@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 type Todo = {
   _id: string;
-  text?: string | null;
+  text: string | null;
   completed: boolean;
 };
 
@@ -86,7 +86,7 @@ export default function Todo() {
       setTodos(todos.filter((todo: Todo) => todo._id !== id));
     }
   };
-  const toggleTodo = async (id: string, completed: boolean, text:string) => {
+  const toggleTodo = async (id: string, completed: boolean, text:strin) => {
     const response = await fetch("/api/todo", {
       method: "PUT",
       body: JSON.stringify({ id, completed: !completed, text }),
@@ -171,7 +171,7 @@ export default function Todo() {
                       <div className="flex justify-start items-start w-8/12">
                         <input
                           checked={todo.completed}
-                          onChange={() => toggleTodo(todo._id, todo.completed, todo.text!)}
+                          onChange={() => toggleTodo(todo._id, todo.completed)}
                           type="checkbox"
                           className="w-5 h-5 cursor-pointer mt-1"
                         />

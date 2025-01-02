@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { getServerSession } from "next-auth"; // Import for server-side session retrieval
+ust the path as necessary
 import SessionProviderWrapper from "./SessionProviderWrapper"; // // Import for server-side session retrieval
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 type Todo = {
   _id: string;
-  text?: string | null;
+  text?: string;
   completed: boolean;
 };
 
@@ -171,7 +171,7 @@ export default function Todo() {
                       <div className="flex justify-start items-start w-8/12">
                         <input
                           checked={todo.completed}
-                          onChange={() => toggleTodo(todo._id, todo.completed, todo.text!)}
+                          onChange={() => toggleTodo(todo._id, todo.completed, todo.text)}
                           type="checkbox"
                           className="w-5 h-5 cursor-pointer mt-1"
                         />

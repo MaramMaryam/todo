@@ -46,6 +46,7 @@ useEffect(() => {
           type="email" 
           value={email} 
           onChange={(e) => setEmail(e.currentTarget.value)} 
+          // required 
         />
       </div>
       <div>
@@ -55,6 +56,7 @@ useEffect(() => {
           type="password" 
           value={password} 
           onChange={(e) => setPassword(e.currentTarget.value)} 
+          // required 
         />
       </div>
       <button type="submit">Login</button>
@@ -64,3 +66,48 @@ useEffect(() => {
 
 
 
+
+// import { signIn } from 'next-auth/react';
+// import { useState } from 'react';
+// import { useRouter } from 'next/navigation';
+
+// export default function Login() {
+
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+//   const router = useRouter();
+
+//   const handleSubmit = async (e:any) => {
+//     e.preventDefault();
+//     const result = await signIn('credentials', {
+//       redirect: false,
+//       email,
+//       password,
+//     });
+//     if (result?.error) {
+//       console.error(result.error);
+//     } else {
+//       router.push('/todos'); // Redirect after successful login
+//     }
+//   };
+
+//   return (
+//     <form onSubmit={handleSubmit} >
+//       <input 
+//         // type="email" 
+//         placeholder="Email" 
+//         value={email} 
+//         onChange={(e) => setEmail(e.currentTarget.value)} 
+//         // required 
+//       />
+//       <input 
+//         // type="password" 
+//         placeholder="Password" 
+//         value={password} 
+//         onChange={(e) => setPassword(e.currentTarget.value)} 
+//         // required 
+//       />
+//       <button type="submit">Login</button>
+//     </form>
+//   );
+// }
